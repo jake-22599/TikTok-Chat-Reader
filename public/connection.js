@@ -4,9 +4,14 @@
  */
 class TikTokIOConnection {
     constructor(backendUrl) {
+        console.info("Socket connecting to: ", backendUrl);
         this.socket = io(backendUrl);
         this.uniqueId = null;
         this.options = null;
+        
+        this.socket.on("error", (error) => {
+            console.error("Socket error: ", error);
+        });
 
         this.socket.on('connect', () => {
             console.info("Socket connected!");
