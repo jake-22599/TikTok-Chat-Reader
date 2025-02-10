@@ -53,7 +53,7 @@ a {
     text-align: center;
 }
 
-.chatcontainer, .giftcontainer, .eventcontainer {
+.chatcontainer, .giftcontainer, .eventcontainer, .chatfiltercontainer {
     overflow-y: scroll;
     height: calc(100vh - 240px);
     word-wrap: break-word;
@@ -66,6 +66,10 @@ a {
 .chatcontainer {
     min-width: 400px;
     max-width: calc(100vw - 430px);
+}
+
+.chatfiltercontainer {
+    min-width: 400px;
 }
 
 .giftcontainer {

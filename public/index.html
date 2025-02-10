@@ -28,6 +28,12 @@
                 alert("Enter username");
             }
         }
+        function openSecondaryTab(id) {
+            document.getElementById("GiftView").style.display = "none";
+            document.getElementById("OrderView").style.display = "none";
+
+            document.getElementById(id).style.display = "block";
+        }
     </script>
 </head>
 <body>
@@ -66,8 +72,15 @@
                 </div>
             </td>
             <td>
-                <div class="giftcontainer">
+                <div class="w3-bar w3-black">
+                    <button class="w3-bar-item w3-button" onclick="openSecondaryTab('GiftView')">View Gifts</button>
+                    <button class="w3-bar-item w3-button" onclick="openSecondaryTab('OrderView')">View orders</button>
+                </div>
+                <div id="GiftView" class="giftcontainer">
                     <h3 class="containerheader">Gifts</h3>
+                </div>
+                <div id="OrderView" class="chatfiltercontainer" style="display:none">
+                    <h3 class="containerheader">Orders</h3>
                 </div>
             </td>
         </tr>

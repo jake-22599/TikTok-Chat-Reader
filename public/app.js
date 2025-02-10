@@ -100,6 +100,34 @@ function addChatItem(color, data, text, summarize) {
 }
 
 /**
+ * Add a new message to the chat container
+ */
+function addFilteredChatItem(color, data, text, summarize) {
+    let container = location.href.includes('obs.html') ? $('.eventcontainer') : $('.chatfiltercontainer');
+
+    if (container.find('div').length > 500) {
+        container.find('div').slice(0, 200).remove();
+    }
+
+    container.find('.temporary').remove();;
+
+    container.append(`
+        <div class=${summarize ? 'temporary' : 'static'}>
+            <img class="miniprofilepicture" src="${data.profilePictureUrl}">
+            <span>
+                <b>${generateUsernameLink(data)}:</b> 
+                <span style="color:${color}">${sanitize(text)}</span>
+            </span>
+        </div>
+    `);
+
+    container.stop();
+    container.animate({
+        scrollTop: container[0].scrollHeight
+    }, 400);
+}
+
+/**
  * Add a new gift to the gift container
  */
 function addGiftItem(data) {
@@ -189,7 +217,16 @@ connection.on('member', (msg) => {
 // New chat comment received
 connection.on('chat', (msg) => {
     if (window.settings.showChats === "0") return;
+    console.log(`${msg.uniqueId} writes: ${msg.comment}`);
 
+    // check if the message fits the regex filter
+    const re = "^[0-9]*$";
+    const found = msg.comment.match(re);
+    if (found != null) {
+        console.log("Message fit the regex filter: ", found);
+        addFilteredChatItem('', msg, msg.comment);
+    }
+    
     addChatItem('', msg, msg.comment);
 })
 
